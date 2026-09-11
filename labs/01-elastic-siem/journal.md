@@ -36,3 +36,37 @@ Fleet Server HTTPS requirement — Kibana rejects HTTP Fleet Server URLs in the 
 - SIEM host: Ubuntu 24.04 UTM VM — 192.168.0.218
 - Target: Kali Linux UTM VM — 192.168.0.77
 - Attacker: Raspberry Pi 5 — 192.168.0.18
+
+
+### September 10-11, 2026
+
+**What was accomplished:**
+- Fixed Fleet Server HTTPS issue by switching to FLEET_SERVER_INSECURE_HTTP=true
+- Discovered correct elastic-agent container environment variable names from --help output
+- Registered Fleet Server host in Kibana via API (bypassing UI HTTP validation)
+- Created missing Fleet Server policy via Kibana API
+- Added FLEET_SERVER_POLICY_ID=fleet-server-policy to docker-compose.yml
+- Fleet Server now running HEALTHY and visible in Kibana Fleet → Agents
+- Kibana Elasticsearch output updated to http://192.168.0.218:9200
+
+**What broke and why:**
+- Fleet Server kept failing with "url is required when a certificate is provided" — attempted SSL cert approach was unnecessary complexity for a home lab
+- Fleet Server was stuck in DEGRADED state because the default Fleet Server policy didn't exist in Kibana after docker compose down wiped saved objects
+- Fixed by creating the policy via API and explicitly passing FLEET_SERVER_POLICY_ID
+
+**Key concepts learned:**
+- elastic-agent container uses specific environment variable names, not CLI flags
+- docker compose down removes saved Kibana objects — always use docker compose restart instead to preserve state
+- Fleet Server needs three things to reach HEALTHY: service token, policy ID, and Kibana registered host URL
+
+**Next session:**
+- Confirm Kali VM is ARM64 architecture
+- Install rsyslog on Kali target VM
+- Download elastic-agent ARM64 build
+- Enroll Elastic Agent on Kali target using Kali-Target policy enrollment token
+- Confirm logs flowing in Kibana Discover
+
+**Architecture:**
+- SIEM host: Ubuntu 24.04 UTM VM — 192.168.0.218
+- Target: Kali Linux UTM VM — 192.168.0.77
+- Attacker: Raspberry Pi 5 — 192.168.0.18
