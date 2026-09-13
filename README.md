@@ -7,6 +7,6 @@ detection artifacts, and defensive recommendations.
 
 | # | Lab | Status | Key Finding |
 |---|-----|--------|-------------|
-| 01 | Elastic SIEM + Kali Attack Lab | 🔄 In progress | SSH brute force detected via threshold rule (T1110) |
+| 01 | Elastic SIEM + Kali Attack Lab | ✅ Complete | SSH brute force (T1110): 4,324 attempts detected, threshold rule fired in 37s |
 | 02 | Splunk Detection Engineering | ⬜ Planned | |
 | 03 | AD Attack and Defend | ⬜ Planned | |

@@ -1,0 +1,24 @@
+title: SSH Brute Force Detection
+id: ssh-brute-force-001
+status: stable
+description: Detects 10+ failed SSH logins from a single source IP within 1 minute
+author: Gildas Yegnon
+date: 2026/09/12
+mitre_attack:
+  - attack.credential_access
+  - attack.t1110
+logsource:
+  product: linux
+  service: auth
+detection:
+  selection:
+    event.action: ssh_login
+    event.outcome: failure
+  threshold:
+    field: source.ip
+    count: 10
+    timeframe: 1m
+falsepositives:
+  - Legitimate users mistyping passwords repeatedly
+  - Automated scripts with hardcoded wrong credentials
+level: high
