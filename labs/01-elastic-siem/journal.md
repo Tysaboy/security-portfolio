@@ -70,3 +70,17 @@ Fleet Server HTTPS requirement — Kibana rejects HTTP Fleet Server URLs in the 
 - SIEM host: Ubuntu 24.04 UTM VM — 192.168.0.218
 - Target: Kali Linux UTM VM — 192.168.0.77
 - Attacker: Raspberry Pi 5 — 192.168.0.18
+
+
+
+### September 12, 2026
+
+**What was accomplished:**
+- Elastic Agent successfully enrolled on Kali target VM (ARM64)
+- Confirmed logs flowing in Kibana Discover — 838 system.auth documents
+- SSH brute force attack detected: 4,324 failed login attempts from 192.168.0.18
+- Detection rule fired: SSH Brute Force - Pi Attack Lab (High, risk score 73, T1110)
+- Built SOC dashboard with 3 panels: failed logins timeline, top attacking IPs, outcome breakdown
+- Lab fully complete end to end
+
+**Lab status: COMPLETE**
